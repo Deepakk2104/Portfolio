@@ -1,62 +1,60 @@
 "use client";
 import React, { useState, useRef } from "react";
 import ProjectCard from "./ProjectCard";
-import ProjectTag from "./ProjectTag";
 import { motion, useInView } from "framer-motion";
 
-const projectsData = [
-  {
-    id: 1,
-    title: "React Portfolio Website",
-    description: "Project 1 description",
-    image: "/images/projects/1.png",
-    gitUrl: "/",
-    previewUrl: "/",
-  },
-  {
-    id: 2,
-    title: "Potography Portfolio Website",
-    description: "Project 2 description",
-    image: "/images/projects/2.png",
-    gitUrl: "/",
-    previewUrl: "/",
-  },
-  {
-    id: 3,
-    title: "E-commerce Application",
-    description: "Project 3 description",
-    image: "/images/projects/3.png",
-    gitUrl: "/",
-    previewUrl: "/",
-  },
-  {
-    id: 4,
-    title: "Food Ordering Application",
-    description: "Project 4 description",
-    image: "/images/projects/4.png",
-    gitUrl: "/",
-    previewUrl: "/",
-  },
-  {
-    id: 5,
-    title: "React Firebase Template",
-    description: "Authentication and CRUD operations",
-    image: "/images/projects/5.png",
-    gitUrl: "/",
-    previewUrl: "/",
-  },
-  {
-    id: 6,
-    title: "Full-stack Roadmap",
-    description: "Project 5 description",
-    image: "/images/projects/6.png",
-    gitUrl: "/",
-    previewUrl: "/",
-  },
-];
-
 const ProjectsSection = () => {
-  const [tag, setTag] = useState("All");
+  const projectsData = [
+    {
+      id: 1,
+      title: "React Portfolio Website",
+      description: "Project 1 description",
+      image: "/images/projects/1.png",
+      gitUrl: "/",
+      previewUrl: "/",
+    },
+    {
+      id: 2,
+      title: "Potography Portfolio Website",
+      description: "Project 2 description",
+      image: "/images/projects/2.png",
+      gitUrl: "/",
+      previewUrl: "/",
+    },
+    {
+      id: 3,
+      title: "E-commerce Application",
+      description: "Project 3 description",
+      image: "/images/projects/3.png",
+      gitUrl: "/",
+      previewUrl: "/",
+    },
+    {
+      id: 4,
+      title: "Food Ordering Application",
+      description: "Project 4 description",
+      image: "/images/projects/4.png",
+      gitUrl: "/",
+      previewUrl: "/",
+    },
+    {
+      id: 5,
+      title: "React Firebase Template",
+      description: "Authentication and CRUD operations",
+      image: "/images/projects/5.png",
+      gitUrl: "/",
+      previewUrl: "/",
+    },
+    {
+      id: 6,
+      title: "Full-stack Roadmap",
+      description: "Project 5 description",
+      image: "/images/projects/6.png",
+      gitUrl: "/",
+      previewUrl: "/",
+    },
+  ];
+
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -72,7 +70,7 @@ const ProjectsSection = () => {
       </h2>
       <div className="text-white flex flex-row justify-center items-center gap-2 py-6"></div>
       <ul ref={ref} className="grid md:grid-cols-3 gap-8 md:gap-12">
-        {filteredProjects.map((project, index) => (
+        {projectsData.map((project, index) => (
           <motion.li
             key={index}
             variants={cardVariants}

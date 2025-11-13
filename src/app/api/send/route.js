@@ -2,27 +2,44 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const fromEmail = process.env.FROM_EMAIL;
 
-export async function POST(req, res) {
+export async function POST(req) {
   const { email, subject, message } = await req.json();
-  console.log(email, subject, message);
+
   try {
-    const data = await resend.emails.send({
-      from: fromEmail,
-      to: [fromEmail, email],
-      subject: subject,
-      react: (
-        <>
-          <h1>{subject}</h1>
-          <p>Thank you for contacting us!</p>
-          <p>New message submitted:</p>
-          <p>{message}</p>
-        </>
-      ),
+    // 1️⃣ SEND EMAIL TO YOU
+    await resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>",
+      to: ["deepakk12435@gmail.com"], // Your inbox
+      subject: `New portfolio message: ${subject}`,
+      html: `
+        <h2>New Message from Your Portfolio</h2>
+        <p><strong>From:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `,
     });
-    return NextResponse.json(data);
+
+    // 2️⃣ AUTO-REPLY TO THE USER
+    await resend.emails.send({
+      from: "Deepak Kumar <onboarding@resend.dev>",
+      to: [email], // Send back to user
+      subject: "Thanks for contacting me!",
+      html: `
+        <h2>Hey there 👋</h2>
+        <p>Thank you for reaching out! I received your message and I’ll get back to you as soon as possible.</p>
+        <br />
+        <p><strong>Your Message:</strong></p>
+        <p>${message}</p>
+        <br />
+        <p>Regards,<br/>Deepak Kumar</p>
+      `,
+    });
+
+    return NextResponse.json({ success: true });
   } catch (error) {
-    return NextResponse.json({ error });
+    console.error("Email send error:", error);
+    return NextResponse.json({ error }, { status: 500 });
   }
 }

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import ProjectCard from "./ProjectCard";
 import { motion, useInView } from "framer-motion";
 
@@ -8,50 +8,62 @@ const ProjectsSection = () => {
     {
       id: 1,
       title: "React Portfolio Website",
-      description: "Project 1 description",
+      description:
+        "A modern portfolio built with React, Tailwind & Framer Motion. Fully responsive and animated.",
       image: "/images/projects/1.png",
       gitUrl: "/",
       previewUrl: "/",
+      tech: ["React", "Tailwind", "Framer Motion"],
     },
     {
       id: 2,
-      title: "Potography Portfolio Website",
-      description: "Project 2 description",
+      title: "Photography Portfolio Website",
+      description:
+        "A clean, minimal photographer portfolio featuring galleries, animations & responsive layouts.",
       image: "/images/projects/2.png",
       gitUrl: "/",
       previewUrl: "/",
+      tech: ["React", "CSS", "GSAP"],
     },
     {
       id: 3,
-      title: "E-commerce Application",
-      description: "Project 3 description",
+      title: "E-commerce Application (EliteCart)",
+      description:
+        "Full-featured React e-commerce app with cart system, product pages, filtering & Firebase backend.",
       image: "/images/projects/3.png",
       gitUrl: "/",
       previewUrl: "/",
+      tech: ["React", "Firebase", "Tailwind"],
     },
     {
       id: 4,
       title: "Food Ordering Application",
-      description: "Project 4 description",
+      description:
+        "Restaurant-style food ordering UI with categories, filters, cart interactions and animations.",
       image: "/images/projects/4.png",
       gitUrl: "/",
       previewUrl: "/",
+      tech: ["React", "CSS", "Framer Motion"],
     },
     {
       id: 5,
-      title: "React Firebase Template",
-      description: "Authentication and CRUD operations",
+      title: "React + Firebase Template",
+      description:
+        "Boilerplate with Auth, Firestore CRUD, protected routes & clean folder structure.",
       image: "/images/projects/5.png",
       gitUrl: "/",
       previewUrl: "/",
+      tech: ["React", "Firebase", "Tailwind"],
     },
     {
       id: 6,
-      title: "Full-stack Roadmap",
-      description: "Project 5 description",
+      title: "Full-Stack Roadmap Guide",
+      description:
+        "A structured roadmap showing frontend, backend, devops & database paths for beginners.",
       image: "/images/projects/6.png",
       gitUrl: "/",
       previewUrl: "/",
+      tech: ["Next.js", "Markdown", "Tailwind"],
     },
   ];
 
@@ -59,32 +71,33 @@ const ProjectsSection = () => {
   const isInView = useInView(ref, { once: true });
 
   const cardVariants = {
-    initial: { y: 50, opacity: 0 },
+    initial: { y: 40, opacity: 0 },
     animate: { y: 0, opacity: 1 },
   };
 
   return (
-    <section id="projects">
-      <h2 className="text-center text-4xl font-bold text-white mt-4 mb-8 md:mb-12">
+    <section id="projects" className="py-10">
+      <h2 className="text-center text-4xl font-bold text-white mb-12">
         My Projects
       </h2>
-      <div className="text-white flex flex-row justify-center items-center gap-2 py-6"></div>
-      <ul ref={ref} className="grid md:grid-cols-3 gap-8 md:gap-12">
+
+      <ul ref={ref} className="grid md:grid-cols-3 gap-10">
         {projectsData.map((project, index) => (
           <motion.li
-            key={index}
+            key={project.id}
             variants={cardVariants}
             initial="initial"
             animate={isInView ? "animate" : "initial"}
-            transition={{ duration: 0.3, delay: index * 0.4 }}
+            transition={{ duration: 0.4, delay: index * 0.25 }}
+            whileHover={{ scale: 1.04 }}
           >
             <ProjectCard
-              key={project.id}
               title={project.title}
               description={project.description}
               imgUrl={project.image}
               gitUrl={project.gitUrl}
               previewUrl={project.previewUrl}
+              tech={project.tech}
             />
           </motion.li>
         ))}

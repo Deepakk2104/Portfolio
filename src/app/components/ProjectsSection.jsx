@@ -17,33 +17,32 @@ const ProjectsSection = () => {
     },
     {
       id: 2,
-      title: "Photography Portfolio Website",
+      title: "Zyncc (Real-time Chat App)",
       description:
-        "A clean, minimal photographer portfolio featuring galleries, animations & responsive layouts.",
+        "A fast real-time chat app with private chats, typing indicators, and online status.",
       image: "/images/projects/2.png",
-      gitUrl: "/",
-      previewUrl: "/",
-      tech: ["React", "CSS", "GSAP"],
+      gitUrl: "https://github.com/Deepakk2104/Zync",
+      previewUrl: "https://zync-chi.vercel.app/login",
+      tech: ["React", "Tailwind", "Firebase", "Firestore Auth"],
     },
     {
       id: 3,
-      title: "E-commerce Application (EliteCart)",
+      title: "Learnify (AI Course Generator)",
       description:
-        "Full-featured React e-commerce app with cart system, product pages, filtering & Firebase backend.",
+        "An AI tool that generates complete courses and lessons instantly",
       image: "/images/projects/3.png",
-      gitUrl: "/",
-      previewUrl: "/",
-      tech: ["React", "Firebase", "Tailwind"],
+      gitUrl: "https://github.com/Deepakk2104/learnify",
+      previewUrl: "https://learnify-sigma-two.vercel.app/",
+      tech: ["React", "Firebase", "Tailwind", "Grok API"],
     },
     {
       id: 4,
-      title: "Food Ordering Application",
-      description:
-        "Restaurant-style food ordering UI with categories, filters, cart interactions and animations.",
+      title: "Portfolio Website",
+      description: "A modern animated developer portfolio built with Next.js",
       image: "/images/projects/4.png",
-      gitUrl: "/",
-      previewUrl: "/",
-      tech: ["React", "CSS", "Framer Motion"],
+      gitUrl: "https://github.com/Deepakk2104/Portfolio",
+      previewUrl: "https://portfolio-orcin-eight-14.vercel.app/",
+      tech: ["Next.js", "Tailwind", "Framer Motion", "Resend"],
     },
   ];
 

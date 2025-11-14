@@ -7,13 +7,13 @@ const ProjectsSection = () => {
   const projectsData = [
     {
       id: 1,
-      title: "React Portfolio Website",
+      title: "EliteCart (E-commerce App)",
       description:
-        "A modern portfolio built with React, Tailwind & Framer Motion. Fully responsive and animated.",
+        "A modern e-commerce web app with cart, admin dashboard , and integrated payment gateway",
       image: "/images/projects/1.png",
-      gitUrl: "/",
-      previewUrl: "/",
-      tech: ["React", "Tailwind", "Framer Motion"],
+      gitUrl: "https://github.com/Deepakk2104/EliteCart--E-commerce-Web",
+      previewUrl: "https://elite-cart-e-commerce-web.vercel.app/",
+      tech: ["React", "Tailwind", "Redux", "Payment API", "Firebase"],
     },
     {
       id: 2,

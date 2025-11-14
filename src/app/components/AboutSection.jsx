@@ -4,56 +4,26 @@ import Image from "next/image";
 import TabButton from "./TabButton";
 import { motion } from "framer-motion";
 
-// SKILL BADGES
+// SKILLS WITH LOGOS
 const SKILLS = [
-  "React",
-  "Next.js",
-  "Tailwind CSS",
-  "JavaScript",
-  "Firebase",
-  "Git & GitHub",
-  "Redux / Zustand",
-  "HTML",
-  "CSS",
-  "UI/UX",
-];
-
-const TAB_DATA = [
-  {
-    title: "Skills",
-    id: "skills",
-    content: (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="flex flex-wrap gap-3"
-      >
-        {SKILLS.map((skill, i) => (
-          <span
-            key={i}
-            className="px-4 py-2 bg-[#1e1e1e] border border-[#333] rounded-full text-sm text-gray-300 hover:bg-[#2a2a2a] transition"
-          >
-            {skill}
-          </span>
-        ))}
-      </motion.div>
-    ),
-  },
-  {
-    title: "Certifications",
-    id: "certifications",
-    content: (
-      <motion.ul
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="list-disc pl-2 space-y-1"
-      >
-        <li>Responsive Web Design – freeCodeCamp</li>
-        <li>JavaScript Algorithms – freeCodeCamp</li>
-        <li>Front End Development Libraries – freeCodeCamp</li>
-      </motion.ul>
-    ),
-  },
+  { name: "React", icon: "/skills/react.svg" },
+  { name: "Next.js", icon: "/skills/nextjs.svg" },
+  { name: "Tailwind CSS", icon: "/skills/tailwind.svg" },
+  { name: "JavaScript", icon: "/skills/js.svg" },
+  { name: "TypeScript", icon: "/skills/ts.svg" },
+  { name: "Firebase", icon: "/skills/firebase.svg" },
+  { name: "Redux", icon: "/skills/redux.svg" },
+  { name: "Bootstrap", icon: "/skills/bootstrap.png" },
+  { name: "Git", icon: "/skills/git.svg" },
+  { name: "GitHub", icon: "/skills/github.svg" },
+  { name: "Framer Motion", icon: "/skills/framer.svg" },
+  { name: "UI/UX", icon: "/skills/uiux.svg" },
+  { name: "REST APIs", icon: "/skills/api.svg" },
+  { name: "Vercel", icon: "/skills/vercel.svg" },
+  { name: "Figma", icon: "/skills/figma.svg" },
+  { name: "HTML", icon: "/skills/html.svg" },
+  { name: "CSS", icon: "/skills/css.svg" },
+  { name: "SCSS", icon: "/skills/scss.svg" },
 ];
 
 const AboutSection = () => {
@@ -67,7 +37,7 @@ const AboutSection = () => {
   return (
     <section className="text-white" id="about">
       <div className="md:grid md:grid-cols-2 gap-16 items-center py-16 px-4 xl:px-16">
-        {/* IMAGE WITH PREMIUM ANIMATION */}
+        {/* IMAGE SECTION */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
@@ -78,26 +48,25 @@ const AboutSection = () => {
             animate={{
               rotate: [0, 1.5, 0],
               scale: [1, 1.03, 1],
-              x: [0, 5, 0],
-              y: [0, -5, 0],
+              x: [0, 6, 0],
+              y: [0, -6, 0],
             }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="relative w-[350px] h-[350px] md:w-[420px] md:h-[420px]"
           >
-            {/* Soft gradient glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-purple-600/25 to-blue-500/20 blur-3xl rounded-3xl"></div>
 
             <Image
               alt="about"
               src="/images/about-image.png"
-              className="rounded-2xl shadow-[0_0_45px_rgba(0,0,0,0.35)] relative z-10"
+              className="rounded-2xl shadow-[0_0_45px_rgba(0,0,0,0.35)] relative z-10 object-cover"
               width={450}
               height={450}
             />
           </motion.div>
         </motion.div>
 
-        {/* TEXT CONTENT */}
+        {/* TEXT SECTION */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
@@ -115,14 +84,13 @@ const AboutSection = () => {
           </h2>
 
           <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[#C8D0D8]">
-            I’m a frontend developer who loves creating clean, modern, and
-            interactive digital experiences. I specialize in React, Next.js, and
-            Tailwind, and I enjoy building fast, beautiful UIs with great user
-            experience. I’m continuously learning, improving, and building
-            better things every day.
+            I’m a frontend developer specializing in building fast, modern, and
+            visually polished web experiences. I work with React, Next.js,
+            Tailwind, and Firebase to create clean, responsive, and user-first
+            interfaces with smooth animations and strong attention to detail.
           </p>
 
-          {/* Tabs */}
+          {/* TABS */}
           <div className="flex flex-row justify-start mt-8 gap-4">
             <TabButton
               selectTab={() => handleTabChange("skills")}
@@ -139,9 +107,91 @@ const AboutSection = () => {
             </TabButton>
           </div>
 
-          {/* Tab Content */}
+          {/* TAB CONTENT */}
           <div className="mt-6 text-[#D1D5DB] text-lg">
-            {TAB_DATA.find((t) => t.id === tab).content}
+            {/* SKILLS SECTION */}
+            {tab === "skills" && (
+              <div className="space-y-8 mt-6 select-none">
+                {/* ROW 1 */}
+                <div className="overflow-hidden w-full">
+                  <motion.div
+                    className="flex gap-6 items-center"
+                    animate={{ x: ["0%", "-100%"] }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 35,
+                      ease: "linear",
+                    }}
+                  >
+                    {[...SKILLS, ...SKILLS].map((skill, i) => (
+                      <span
+                        key={i}
+                        className="flex items-center justify-center gap-2 
+                        px-6 py-2 flex-shrink-0 bg-white/10 backdrop-blur-xl
+                        border border-white/20 shadow-lg rounded-full 
+                        text-sm text-gray-200 whitespace-nowrap
+                        hover:bg-white/20 hover:scale-105 transition-all"
+                      >
+                        <Image
+                          src={skill.icon}
+                          alt={skill.name}
+                          width={18}
+                          height={18}
+                          className="object-contain"
+                        />
+                        <span>{skill.name}</span>
+                      </span>
+                    ))}
+                  </motion.div>
+                </div>
+
+                {/* ROW 2 (reverse) */}
+                <div className="overflow-hidden w-full">
+                  <motion.div
+                    className="flex gap-6 items-center"
+                    animate={{ x: ["-100%", "0%"] }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 40,
+                      ease: "linear",
+                    }}
+                  >
+                    {[...SKILLS, ...SKILLS].map((skill, i) => (
+                      <span
+                        key={i}
+                        className="flex items-center justify-center gap-2 
+                        px-6 py-2 flex-shrink-0 bg-white/10 backdrop-blur-xl
+                        border border-white/20 shadow-lg rounded-full 
+                        text-sm text-gray-200 whitespace-nowrap
+                        hover:bg-white/20 hover:scale-105 transition-all"
+                      >
+                        <Image
+                          src={skill.icon}
+                          alt={skill.name}
+                          width={18}
+                          height={18}
+                          className="object-contain"
+                        />
+                        <span>{skill.name}</span>
+                      </span>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
+            )}
+
+            {/* CERTIFICATIONS */}
+            {tab === "certifications" && (
+              <motion.ul
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="list-disc pl-2 space-y-1"
+              >
+                <li>Responsive Web Design – freeCodeCamp</li>
+                <li>JavaScript Algorithms – freeCodeCamp</li>
+                <li>Front End Development Libraries – freeCodeCamp</li>
+              </motion.ul>
+            )}
           </div>
         </motion.div>
       </div>

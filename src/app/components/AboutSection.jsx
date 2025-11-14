@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 // SKILLS WITH LOGOS
 const SKILLS = [
   { name: "React", icon: "/skills/react.svg" },
-  { name: "Next.js", icon: "/skills/nextjs.svg" },
+  { name: "Next.js", icon: "/skills/nextjs.png" },
   { name: "Tailwind CSS", icon: "/skills/tailwind.svg" },
   { name: "JavaScript", icon: "/skills/js.svg" },
   { name: "TypeScript", icon: "/skills/ts.svg" },

@@ -45,26 +45,6 @@ const ProjectsSection = () => {
       previewUrl: "/",
       tech: ["React", "CSS", "Framer Motion"],
     },
-    {
-      id: 5,
-      title: "React + Firebase Template",
-      description:
-        "Boilerplate with Auth, Firestore CRUD, protected routes & clean folder structure.",
-      image: "/images/projects/5.png",
-      gitUrl: "/",
-      previewUrl: "/",
-      tech: ["React", "Firebase", "Tailwind"],
-    },
-    {
-      id: 6,
-      title: "Full-Stack Roadmap Guide",
-      description:
-        "A structured roadmap showing frontend, backend, devops & database paths for beginners.",
-      image: "/images/projects/6.png",
-      gitUrl: "/",
-      previewUrl: "/",
-      tech: ["Next.js", "Markdown", "Tailwind"],
-    },
   ];
 
   const ref = useRef(null);
@@ -81,7 +61,7 @@ const ProjectsSection = () => {
         My Projects
       </h2>
 
-      <ul ref={ref} className="grid md:grid-cols-3 gap-10">
+      <ul ref={ref} className="grid md:grid-cols-2 gap-10">
         {projectsData.map((project, index) => (
           <motion.li
             key={project.id}

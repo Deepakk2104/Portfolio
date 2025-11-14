@@ -11,10 +11,10 @@ const ProjectCard = ({
   tech,
 }) => {
   return (
-    <div className="group bg-[#181818] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+    <div className="group bg-[#181818] w-[80%] mx-auto rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
       {/* Image */}
       <div
-        className="h-52 md:h-72 relative"
+        className="w-full h-56 md:h-64 relative rounded-md overflow-hidden"
         style={{ background: `url(${imgUrl}) center/cover no-repeat` }}
       >
         {/* Overlay */}

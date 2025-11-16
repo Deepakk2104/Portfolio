@@ -84,10 +84,14 @@ const AboutSection = () => {
           </h2>
 
           <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[#C8D0D8]">
-            I’m a frontend developer specializing in building fast, modern, and
-            visually polished web experiences. I work with React, Next.js,
-            Tailwind, and Firebase to create clean, responsive, and user-first
-            interfaces with smooth animations and strong attention to detail.
+            Hey, I’m Deepak — a web developer crafting fast, modern, and
+            immersive digital experiences. I specialize in building interfaces
+            that don’t just look good, but feel good , blending clean code,
+            smooth animations, and a deep focus on usability. Whether it’s a
+            real-time chat app, an e-commerce platform with live payments, or an
+            AI-driven tool ,I bring ideas to life with precision and style. I
+            build with React, Next.js, Tailwind, and Firebase, and I’m always
+            exploring new tools to level up my skills.
           </p>
 
           {/* TABS */}

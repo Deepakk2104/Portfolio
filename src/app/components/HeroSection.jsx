@@ -39,7 +39,7 @@ const HeroSection = () => {
           </h1>
 
           <p className="text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl">
-            Transforming ideas into smooth, interactive web experiences
+            Transforming ideas into smooth, interactive web experience
           </p>
 
           <div>

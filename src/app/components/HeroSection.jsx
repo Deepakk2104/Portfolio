@@ -53,7 +53,7 @@ const HeroSection = () => {
             </Link>
 
             <Link
-              href="https://drive.google.com/file/d/1glWGJUqm06XPqQTgLkY8Gat8Qogxt8qs/view?usp=sharing"
+              href="https://drive.google.com/file/d/1mNgWI3mByA5rh648zTgv3lhVYyqb4K9n/view?usp=drive_link"
               className="px-1 inline-block py-1 w-full sm:w-fit rounded-full 
               bg-gradient-to-br from-primary-500 to-secondary-500 
               hover:bg-slate-800 text-white mt-3 transition"

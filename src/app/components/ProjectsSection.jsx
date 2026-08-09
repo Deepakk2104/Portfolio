@@ -7,13 +7,13 @@ const ProjectsSection = () => {
   const projectsData = [
     {
       id: 1,
-      title: "EliteCart (E-commerce App)",
+      title: "RankPilot — AI SEO Analyzer",
       description:
-        "A modern e-commerce web app with cart, admin dashboard , and integrated payment gateway",
+        "A full-stack AI-powered SEO analyzer with website audits, keyword tracking, scan history, and AI-generated optimization reports.",
       image: "/images/projects/1.png",
-      gitUrl: "https://github.com/Deepakk2104/EliteCart--E-commerce-Web",
-      previewUrl: "https://elite-cart-e-commerce-web.vercel.app/",
-      tech: ["React", "Tailwind", "Redux", "Payment API", "Firebase"],
+      gitUrl: "https://github.com/Deepakk2104/rankpilot",
+      previewUrl: "https://rankpilot-coral.vercel.app/",
+      tech: ["React", "Node.js", "Express", "PostgreSQL", "Prisma", "JWT"],
     },
     {
       id: 2,

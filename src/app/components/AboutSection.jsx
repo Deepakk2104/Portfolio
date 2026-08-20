@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 
 const SKILLS = [
@@ -37,12 +37,12 @@ const SKILLS = [
 ];
 
 const GROUP_COLOR = {
-  lang: "#818cf8",
-  frontend: "#22d3ee",
-  backend: "#34d399",
-  data: "#fbbf24",
-  cloud: "#f472b6",
-  tools: "#a78bfa",
+  lang: "hsl(var(--accent))",
+  frontend: "hsl(var(--accent-foreground) / 0.5)",
+  backend: "hsl(var(--muted-foreground) / 0.5)",
+  data: "hsl(var(--muted) / 0.5)",
+  cloud: "hsl(var(--accent) / 0.5)",
+  tools: "hsl(var(--muted-foreground) / 0.5)",
 };
 
 const GOLDEN_ANGLE = 137.50776405003785;
@@ -52,8 +52,6 @@ const seededRandom = (seed) => {
   return x - Math.floor(x);
 };
 
-// radius pulled in (rx/ry 40 instead of 46-48) so every node stays
-// safely inside its 0-100% box — nothing clips at the container edge.
 function buildLayout(skills) {
   const shuffled = [...skills]
     .map((s, i) => ({ ...s, sortKey: seededRandom(i + 7) }))
@@ -95,7 +93,15 @@ function buildLayout(skills) {
   return { nodes, edges };
 }
 
-const SkillNode = ({ node, index, mouseX, mouseY, hovered, setHovered }) => {
+const SkillNode = ({
+  node,
+  index,
+  mouseX,
+  mouseY,
+  hovered,
+  setHovered,
+  reducedMotion,
+}) => {
   const depth = 0.5 + node.radius;
   const px = useTransform(mouseX, (v) => v * depth * 10);
   const py = useTransform(mouseY, (v) => v * depth * 10);
@@ -116,19 +122,21 @@ const SkillNode = ({ node, index, mouseX, mouseY, hovered, setHovered }) => {
           viewport={{ once: true }}
           animate={{ y: [0, -6, 0, 5, 0] }}
           transition={{
-            opacity: { duration: 0.3 },
-            scale: { duration: 0.5, delay: index * 0.012 },
-            y: { duration: 5 + node.radius * 4, repeat: Infinity, ease: "easeInOut" },
+            opacity: { duration: reducedMotion ? 0 : 0.3 },
+            scale: { duration: reducedMotion ? 0 : 0.5, delay: index * 0.012 },
+            y: reducedMotion
+              ? { duration: 0, repeat: false }
+              : { duration: 5 + node.radius * 4, repeat: Infinity, ease: "easeInOut" },
           }}
           onMouseEnter={() => setHovered(index)}
           onMouseLeave={() => setHovered(null)}
           style={{ "--glow": color }}
           className="group relative flex items-center gap-1.5 whitespace-nowrap
-          rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5
-          text-[10px] sm:text-[11px] md:text-xs text-gray-200 backdrop-blur-sm cursor-default select-none
-          transition-[border-color,background-color,box-shadow] duration-300
-          hover:border-white/30 hover:bg-white/10 hover:text-white
-          hover:shadow-[0_0_18px_var(--glow)]"
+          rounded-full border-border bg-background/50 px-3 py-1.5
+          text-sm text-muted-foreground backdrop-blur-sm cursor-default select-none
+          transition-[border_color,background_color,box-shadow] duration-300
+          hover:border-accent hover:bg-accent/10 hover:text-accent-foreground
+          hover:shadow-[0_0_18px_rgba(var(--accent),0.3)]"
         >
           <span
             className="h-1.5 w-1.5 rounded-full flex-shrink-0"
@@ -141,7 +149,9 @@ const SkillNode = ({ node, index, mouseX, mouseY, hovered, setHovered }) => {
   );
 };
 
-const SkillConstellation = () => {
+const SkillConstellation = ({
+  reducedMotion,
+}) => {
   const { nodes, edges } = useMemo(() => buildLayout(SKILLS), []);
   const [hovered, setHovered] = useState(null);
 
@@ -165,8 +175,6 @@ const SkillConstellation = () => {
   };
 
   return (
-    // overflow-hidden + relative box: constellation is fully contained,
-    // nothing can spill into the text column next to it
     <div
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
@@ -192,7 +200,7 @@ const SkillConstellation = () => {
               y1={`${a.y}%`}
               x2={`${b.x}%`}
               y2={`${b.y}%`}
-              stroke={active ? GROUP_COLOR[nodes[hovered].group] : "#ffffff"}
+              stroke={active ? "hsl(var(--accent))" : "hsl(var(--muted) / 0.3)"}
               strokeWidth={active ? 1.1 : 0.5}
               opacity={active ? 0.5 : 0.07}
               style={{ transition: "opacity 0.3s ease, stroke 0.3s ease" }}
@@ -210,6 +218,7 @@ const SkillConstellation = () => {
           mouseY={mouseY}
           hovered={hovered}
           setHovered={setHovered}
+          reducedMotion={reducedMotion}
         />
       ))}
     </div>
@@ -217,40 +226,58 @@ const SkillConstellation = () => {
 };
 
 const AboutSection = () => {
-  return (
-    <section className="text-white" id="about">
-      <div className="max-w-7xl mx-auto py-16 px-4 xl:px-0 grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-14 items-center">
-        {/* LEFT — SKILL CONSTELLATION, fully contained */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="order-2 md:order-1"
-        >
-          <SkillConstellation />
-        </motion.div>
+  const [reducedMotion, setReducedMotion] = useState(
+    typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
 
-        {/* RIGHT — ABOUT + EXPERIENCE, fully contained, own column */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="order-1 md:order-2 flex flex-col"
-        >
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handler = (e) => setReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  const skillGroupMap = {
+    lang: "Languages",
+    frontend: "Frontend",
+    backend: "Backend",
+    data: "Data",
+    cloud: "Cloud",
+    tools: "Tools",
+  };
+
+  return (
+    <section className="py-16" id="about">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-14 items-center">
+        {/* LEFT — SKILL CONSTELLATION (desktop) / SKILL CHIPS (mobile) */}
+        <div className="md:order-1 max-w-[880px] mx-auto">
+          {reducedMotion ? (
+            <div className="flex flex-wrap gap-2 justify-center">
+              {Object.entries(GROUP_COLOR).map(([group, color]) => (
+                <span
+                  key={group}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-accent/10 text-accent-foreground text-xs font-medium"
+                >
+                  {skillGroupMap[group]}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <SkillConstellation reducedMotion={reducedMotion} />
+          )}
+        </div>
+
+        {/* RIGHT — ABOUT + EXPERIENCE */}
+        <div className="md:order-2 flex flex-col">
           <h2 className="text-4xl font-bold mb-4 relative w-fit">
             About Me
-            <motion.span
-              initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="block h-[3px] bg-gradient-to-r from-primary-500 to-secondary-500 mt-1 rounded-full"
+            <span
+              className="block h-[3px] bg-gradient-to-r from-accent to-accent-foreground mt-1 rounded-full"
             />
           </h2>
 
-          <p className="text-base md:text-lg leading-relaxed text-[#C8D0D8]">
+          <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
             I'm Deepak, a Full Stack Developer with hands-on industry experience
             building production web applications. Skilled in React, Next.js,
             Node.js, Express.js, and Firebase, I focus on writing clean, scalable
@@ -261,20 +288,23 @@ const AboutSection = () => {
           </p>
 
           <div className="mt-8">
-            <h3 className="text-sm uppercase tracking-widest text-primary-400 font-semibold mb-4">
+            <h3 className="text-sm uppercase tracking-widest text-accent font-semibold mb-4">
               Experience
             </h3>
 
-            <div className="relative pl-5 border-l border-white/10">
-              <span className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-primary-500 shadow-[0_0_10px_theme(colors.primary.500)]" />
+            <div className="relative pl-5 border-l border-border">
+              <span
+                className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-accent"
+              />
 
               <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                <h4 className="text-white font-semibold">Frontend Developer Intern</h4>
-                <span className="text-xs text-gray-400 whitespace-nowrap">Apr 2026 – Jul 2026</span>
+                <h4 className="text-foreground font-semibold">Frontend Developer Intern</h4>
+                <span className="text-xs text-muted-foreground whitespace-nowrap">Apr 2026 – Jul 2026</span>
               </div>
-              <p className="text-sm text-primary-300 mb-3">Spearmint Technologies, Noida</p>
 
-              <ul className="list-disc pl-5 space-y-1.5 text-[#D1D5DB] text-[15px] leading-relaxed">
+              <p className="text-sm text-muted-foreground mb-3">Spearmint Technologies, Noida</p>
+
+              <ul className="list-disc pl-5 space-y-1.5 text-muted-foreground text-[15px] leading-relaxed">
                 <li>Developed and maintained 8+ production client websites using React, Next.js, WordPress, and Divi.</li>
                 <li>Optimized website performance through lazy loading, image optimization, and frontend improvements.</li>
                 <li>Built responsive, reusable UI components and integrated REST APIs.</li>
@@ -285,7 +315,7 @@ const AboutSection = () => {
                 {["React", "Next.js", "JavaScript", "Tailwind CSS", "WordPress", "Divi", "Git"].map((t) => (
                   <span
                     key={t}
-                    className="text-[11px] px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-background/50 border border-border text-sm text-muted-foreground"
                   >
                     {t}
                   </span>
@@ -293,7 +323,7 @@ const AboutSection = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

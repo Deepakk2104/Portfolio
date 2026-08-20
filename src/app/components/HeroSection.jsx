@@ -7,17 +7,18 @@ import Link from "next/link";
 
 const HeroSection = () => {
   return (
-    <section className="lg:py-16">
-      <div className="grid grid-cols-1 sm:grid-cols-12">
+    <section className="lg:py-16 min-h-[70vh] flex items-center bg-background">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto px-4">
         {/* LEFT SIDE */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="col-span-8 place-self-center text-center sm:text-left justify-self-start"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-left"
         >
-          <h1 className="text-white mb-4 text-4xl sm:text-5xl lg:text-8xl lg:leading-normal font-extrabold">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-600">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl lg:leading-normal font-extrabold text-foreground mb-4">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-foreground">
               Hello, I&apos;m{" "}
             </span>
             <br />
@@ -38,58 +39,46 @@ const HeroSection = () => {
             />
           </h1>
 
-          <p className="text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl">
+          <p className="text-muted-foreground text-base sm:text-lg mb-6 lg:text-xl">
             Transforming ideas into smooth, interactive web experiences
           </p>
 
-          <div>
+          <div className="flex flex-col sm:flex-row gap-3">
             <Link
               href="/#contact"
-              className="px-6 inline-block py-3 w-full sm:w-fit rounded-full mr-4 
-              bg-gradient-to-br from-primary-500 to-secondary-500 
-              hover:bg-slate-200 text-white transition"
+              className="px-6 py-3 rounded-full bg-accent text-accent-foreground hover:bg-opacity-90 transition"
             >
               Hire Me
             </Link>
 
             <Link
               href="https://drive.google.com/file/d/1YO9CbqRyPAWd3qk-T0Oe8FCfKs6btnz4/view?usp=drive_link"
-              className="px-1 inline-block py-1 w-full sm:w-fit rounded-full 
-              bg-gradient-to-br from-primary-500 to-secondary-500 
-              hover:bg-slate-800 text-white mt-3 transition"
+              className="px-6 py-3 rounded-full bg-card border border-border hover:bg-opacity-80 transition"
             >
-              <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-5 py-2">
-                Download CV
-              </span>
+              <span className="block bg-background rounded-full px-5 py-2">Download CV</span>
             </Link>
           </div>
         </motion.div>
 
-        {/* RIGHT SIDE — FLOATING IMAGE */}
+        {/* RIGHT SIDE — FEATURED IMAGE */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="col-span-4 place-self-center mt-4 lg:mt-0"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative self-center"
         >
-          <motion.div
-            animate={{ y: [0, -15, 0] }}
-            transition={{ duration: 4, repeat: Infinity }}
-            className="relative w-[300px] h-[300px] lg:w-[450px] lg:h-[450px]"
-          >
-            {/* Glow Behind Image */}
-            <div className="absolute inset-0 rounded-full blur-3xl bg-purple-600 opacity-20"></div>
+          {/* Glow Orbs */}
+          <div className="absolute -inset-2 rounded-2xl opacity-5 rotate-175 blur-3xl bg-accent/20 animation-pulse-slow" />
+          <div className="absolute -inset-2 rounded-2xl opacity-5 rotate--175 blur-3xl bg-accent-foreground/20 animation-pulse-slow" />
 
-            {/* Hero Image */}
-            <Image
-              src="/images/hero-image.svg"
-              alt="hero image"
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-              drop-shadow-[0_0_35px_rgba(139,92,246,0.35)]"
-              width={450}
-              height={450}
-            />
-          </motion.div>
+          {/* Hero Image */}
+          <Image
+            src="/images/hero-image.svg"
+            alt="Deepak Kumar - Full Stack Developer"
+            className="w-full max-w-lg mx-auto rounded-3xl drop-shadow-2xl"
+            priority
+          />
         </motion.div>
       </div>
     </section>

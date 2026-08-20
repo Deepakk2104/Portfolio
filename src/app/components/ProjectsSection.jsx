@@ -1,7 +1,15 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
+import TabButton from "./TabButton";
 import { motion, useInView } from "framer-motion";
+
+const techGroups = {
+  all: "All Projects",
+  frontend: "Frontend",
+  backend: "Backend",
+  ai: "AI & ML",
+};
 
 const ProjectsSection = () => {
   const projectsData = [
@@ -14,6 +22,7 @@ const ProjectsSection = () => {
       gitUrl: "https://github.com/Deepakk2104/rankpilot",
       previewUrl: "https://rankpilot-coral.vercel.app/",
       tech: ["React", "Node.js", "Express", "PostgreSQL", "Prisma", "JWT"],
+      category: "ai",
     },
     {
       id: 2,
@@ -24,6 +33,7 @@ const ProjectsSection = () => {
       gitUrl: "https://github.com/Deepakk2104/Zync",
       previewUrl: "https://zync-chi.vercel.app/login",
       tech: ["React", "Tailwind", "Firebase", "Firestore Auth"],
+      category: "frontend",
     },
     {
       id: 3,
@@ -34,6 +44,7 @@ const ProjectsSection = () => {
       gitUrl: "https://github.com/Deepakk2104/learnify",
       previewUrl: "https://learnify-sigma-two.vercel.app/",
       tech: ["React", "Firebase", "Tailwind", "Grok API"],
+      category: "ai",
     },
     {
       id: 4,
@@ -43,9 +54,11 @@ const ProjectsSection = () => {
       gitUrl: "https://github.com/Deepakk2104/Portfolio",
       previewUrl: "https://portfolio-orcin-eight-14.vercel.app/",
       tech: ["Next.js", "Tailwind", "Framer Motion", "Resend"],
+      category: "frontend",
     },
   ];
 
+  const [filter, setFilter] = useState<keyof typeof techGroups>("all");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -54,14 +67,36 @@ const ProjectsSection = () => {
     animate: { y: 0, opacity: 1 },
   };
 
+  const filteredProjects = filter === "all"
+    ? projectsData
+    : projectsData.filter((p) => p.category === filter);
+
+  const tabVariants = {
+    initial: { opacity: 0, y: 10 },
+    animate: { opacity: 1, y: 0 },
+  };
+
   return (
     <section id="projects" className="py-10">
-      <h2 className="text-center text-4xl font-bold text-white mb-12">
+      <h2 className="text-center text-4xl font-bold text-white mb-10">
         My Projects
       </h2>
 
+      {/* Filter tabs */}
+      <div className="text-center mb-8">
+        {Object.keys(techGroups).map((key) => (
+          <TabButton
+            key={key}
+            active={filter === key}
+            onClick={() => setFilter(key as keyof typeof techGroups)}
+          >
+            {techGroups[key]}
+          </TabButton>
+        ))}
+      </div>
+
       <ul ref={ref} className="grid md:grid-cols-2 gap-10">
-        {projectsData.map((project, index) => (
+        {filteredProjects.map((project, index) => (
           <motion.li
             key={project.id}
             variants={cardVariants}

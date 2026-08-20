@@ -17,9 +17,9 @@ const EmailSection = () => {
     setIsSubmitting(true);
     setFormError(null);
 
-    const email = (e.target.email as HTMLInputElement).value;
-    const subject = (e.target.subject as HTMLInputElement).value;
-    const message = (e.target.message as HTMLTextAreaElement).value;
+    const email = e.target.email.value;
+    const subject = e.target.subject.value;
+    const message = e.target.message.value;
 
     const data = { email, subject, message };
     const JSONdata = JSON.stringify(data);

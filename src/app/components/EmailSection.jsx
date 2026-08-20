@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Sonner from "sonner";
+import { toast } from "sonner";
 import GithubIcon from "../../../public/github-icon.svg";
 import LinkedinIcon from "../../../public/linkedin-icon.svg";
 import Link from "next/link";
@@ -35,13 +35,17 @@ const EmailSection = () => {
       if (response.ok) {
         setEmailSubmitted(true);
         setTimeout(() => setEmailSubmitted(false), 5000);
+        toast.success("Message sent successfully! 🎉", {
+          description: "I'll get back to you soon.",
+        });
       } else {
         const errorData = await response.json();
+        toast.error(errorData.error || "Failed to send message");
         throw new Error(errorData.error || "Failed to send message");
       }
     } catch (error) {
+      toast.error(error.message || "Failed to send message. Please try again.");
       setFormError(error.message);
-      Sonner.error(error.message || "Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -52,8 +56,6 @@ const EmailSection = () => {
       id="contact"
       className="grid md:grid-cols-2 my-12 md:my-12 py-24 gap-4 relative"
     >
-      <Sonner />
-
       {/* Background glow */}
       <div
         className="bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stools))] 
@@ -85,6 +87,7 @@ const EmailSection = () => {
 
       {/* RIGHT SIDE - FORM + SUCCESS MESSAGE */}
       <div className="min-h-[300px] flex items-start">
+        {" "}
         {emailSubmitted ? (
           <div
             className="bg-[#18191E] border border-[#33353F] rounded-lg p-6 
@@ -123,11 +126,6 @@ const EmailSection = () => {
                 placeholder="jacob@google.com"
                 aria-describedby="email-error"
               />
-              {formError?.includes("email") && (
-                <p id="email-error" className="text-red-400 text-xs mt-1">
-                  Please enter a valid email address.
-                </p>
-              )}
             </div>
 
             <div className="mb-6">
@@ -175,28 +173,7 @@ const EmailSection = () => {
               disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-primary-400"
               disabled={isSubmitting}
             >
-              {isSubmitting ? (
-                <>
-                  <span className="flex items-center justify-center">Sending...</span>
-                  <svg
-                    className="animate-spin h-4 w-4 mr-2 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                  </svg>
-                </>
-              ) : (
-                "Send Message"
-              )}
+              Send Message
             </button>
           </form>
         )}

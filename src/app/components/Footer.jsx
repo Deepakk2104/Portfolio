@@ -1,5 +1,5 @@
 import React from "react";
-import { FaGithub, FaLinkedin, FaTwitter, FaMedium } from "react-icons/fa";
+import { GiGithub, LiLinkedin, BiTwitter } from "@heroicons/react/24/outline";
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -44,7 +44,7 @@ const Footer = () => {
           className="text-gray-400 hover:text-white transition-colors"
           aria-label="GitHub"
         >
-          <FaGithub className="h-5 w-5" />
+          <GiGithub className="h-5 w-5" />
         </a>
         <a
           href="https://www.linkedin.com/in/deepakk2104/"
@@ -53,7 +53,7 @@ const Footer = () => {
           className="text-gray-400 hover:text-white transition-colors"
           aria-label="LinkedIn"
         >
-          <FaLinkedin className="h-5 w-5" />
+          <LiLinkedin className="h-5 w-5" />
         </a>
         <a
           href="https://x.com/intent/post?text=Check out Deepak Kumar's portfolio!"
@@ -62,7 +62,7 @@ const Footer = () => {
           className="text-gray-400 hover:text-white transition-colors"
           aria-label="Twitter"
         >
-          <FaTwitter className="h-5 w-5" />
+          <BiTwitter className="h-5 w-5" />
         </a>
       </div>
 

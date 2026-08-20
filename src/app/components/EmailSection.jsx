@@ -39,7 +39,7 @@ const EmailSection = () => {
         const errorData = await response.json();
         throw new Error(errorData.error || "Failed to send message");
       }
-    } catch (error: any) {
+    } catch (error) {
       setFormError(error.message);
       Sonner.error(error.message || "Failed to send message. Please try again.");
     } finally {

@@ -58,7 +58,7 @@ const ProjectsSection = () => {
     },
   ];
 
-  const [filter, setFilter] = useState<keyof typeof techGroups>("all");
+  const [filter, setFilter] = useState("all");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 

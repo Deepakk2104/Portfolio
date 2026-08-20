@@ -88,7 +88,7 @@ const ProjectsSection = () => {
           <TabButton
             key={key}
             active={filter === key}
-            onClick={() => setFilter(key as keyof typeof techGroups)}
+            onClick={() => setFilter(key)}
           >
             {techGroups[key]}
           </TabButton>

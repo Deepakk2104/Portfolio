@@ -1,11 +1,15 @@
 import React from "react";
-import { GiGithub, LiLinkedin, BiTwitter } from "@heroicons/react/24/outline";
+import GithubIcon from "../../../public/github-icon.svg";
+import LinkedinIcon from "../../../public/linkedin-icon.svg";
+import Image from "next/image";
 
 const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="footer border-t border-gray-700 border-l-transparent border-r-transparent bg-gray-900">
+    <footer
+      className="footer border-t border-gray-700 border-l-transparent border-r-transparent bg-gray-900"
+    >
       <div className="container flex flex-col md:flex-row justify-between items-center py-8">
         <span className="text-xl font-semibold text-white">
           Deepak Kumar
@@ -44,7 +48,7 @@ const Footer = () => {
           className="text-gray-400 hover:text-white transition-colors"
           aria-label="GitHub"
         >
-          <GiGithub className="h-5 w-5" />
+          <Image src={GithubIcon} alt="GitHub" />
         </a>
         <a
           href="https://www.linkedin.com/in/deepakk2104/"
@@ -53,16 +57,7 @@ const Footer = () => {
           className="text-gray-400 hover:text-white transition-colors"
           aria-label="LinkedIn"
         >
-          <LiLinkedin className="h-5 w-5" />
-        </a>
-        <a
-          href="https://x.com/intent/post?text=Check out Deepak Kumar's portfolio!"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-400 hover:text-white transition-colors"
-          aria-label="Twitter"
-        >
-          <BiTwitter className="h-5 w-5" />
+          <Image src={LinkedinIcon} alt="LinkedIn" />
         </a>
       </div>
 
